@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     public function index() {
-            return MovieResource::collection(Movie::paginate(10));
+        $movies = Movie::with('genre')->paginate(10);
+        return MovieResource::collection($movies);
     }
 }
