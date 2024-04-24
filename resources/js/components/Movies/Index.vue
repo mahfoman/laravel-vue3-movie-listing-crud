@@ -1,55 +1,38 @@
 <template>
-    <h1>Simple static text from vue component </h1>
+    <h1>Mahfoman Movies</h1>
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
+        <tr v-for="movie in movies">
+            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                {{ movie.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                {{ movie.title }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                {{ movie.description }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                {{ movie.created_at }}
+            </td>
         </tr>
         </tbody>
     </table>
 </template>
+
+<script setup>
+import { onMounted } from "vue";
+import useMovies from "../../composables/movies";
+const { movies, getMovies } = useMovies()
+onMounted(() => {
+    getMovies()
+})
+</script>
