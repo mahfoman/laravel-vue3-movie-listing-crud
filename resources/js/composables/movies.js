@@ -6,7 +6,7 @@ export default function useMovies() {
     const getMovies = async () => {
         axios.get('/api/movies')
             .then(response => {
-                movies.value = response.data;
+                movies.value = response.data.data;
             })
     }
     return { movies, getMovies }
