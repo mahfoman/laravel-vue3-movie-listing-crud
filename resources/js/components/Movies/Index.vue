@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="movie in movies">
+        <tr v-for="movie in movies.data">
             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                 {{ movie.id }}
             </td>
@@ -26,11 +26,17 @@
         </tr>
         </tbody>
     </table>
+    
+    <div class="d-flex justify-content-center mt-3">
+        <Bootstrap4Pagination :data="movies" @pagination-change-page="getMovies" />
+    </div>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
 import useMovies from "../../composables/movies";
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+
 const { movies, getMovies } = useMovies()
 onMounted(() => {
     getMovies()
