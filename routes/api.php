@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('movies', [App\Http\Controllers\Api\MovieController::class, 'index']);
+Route::get('genres', [App\Http\Controllers\Api\GenreController::class, 'index']);
