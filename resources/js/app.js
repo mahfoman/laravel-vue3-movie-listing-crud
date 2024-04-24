@@ -1,8 +1,11 @@
 import './bootstrap';
 
 import { createApp } from 'vue'
-import MoviesIndex from './components/Movies/Index.vue'
 
-createApp({})
-    .component('MoviesIndex', MoviesIndex)
+import App from './layouts/master.vue'
+import router from './routes/index'
+
+
+createApp(App)
+    .use(router)
     .mount('#app')
