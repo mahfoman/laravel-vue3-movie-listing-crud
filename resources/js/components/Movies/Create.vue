@@ -29,13 +29,22 @@
                         <span class="text-danger">{{ message }}</span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary cursor-not-allowed">
-                    <span>Save</span>
+                <button :disabled="isLoading" type="submit" class="btn btn-primary cursor-not-allowed">
+                    <span v-show="isLoading" class="spinner-border p-2">&nbsp;</span>
+                    <span v-if="isLoading">&nbsp;&nbsp;Saving...</span>
+                    <span v-else>Save</span>
                 </button>
             </form>
         </div>
     </div>
 </template>
+
+<style>
+.spinner-border {
+    width: 14px;
+    height: 14px;
+}
+</style>
 
 <script setup>
 import { onMounted, reactive } from 'vue';
@@ -49,7 +58,7 @@ const movie = reactive({
 })
 
 const { genres, getGenres } = useGenres()
-const { storeMovie, validationErrors  } = useMovies()
+const { storeMovie, validationErrors, isLoading  } = useMovies()
 
 onMounted(() => {
     getGenres()

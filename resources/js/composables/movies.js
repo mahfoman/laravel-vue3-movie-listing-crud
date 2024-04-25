@@ -5,6 +5,7 @@ export default function useMovies() {
     const movies = ref([])
     const validationErrors = ref({})
     const router = useRouter()
+    const isLoading = ref(false)
 
     const getMovies = async (page = 1 , genre = '') => {
         axios.get('/api/movies?page=' + page + '&genre=' + genre)
@@ -14,6 +15,11 @@ export default function useMovies() {
     }
 
     const storeMovie = async (movie) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true;
+        validationErrors.value = {}
+
         // console.log(movie);
         axios.post('/api/movies', movie)
             .then(response => {
@@ -22,9 +28,10 @@ export default function useMovies() {
             .catch(error => {
                 if (error.response?.data) {
                     validationErrors.value = error.response.data.errors
+                    isLoading.value = false
                 }
             })
     }
 
-    return { movies, getMovies, storeMovie, validationErrors  }
+    return { movies, getMovies, storeMovie, validationErrors, isLoading  }
 }
