@@ -34,4 +34,9 @@ class MovieController extends Controller
         $movie->update($request->validated());
         return new MovieResource($movie);
     }
+
+    public function destroy(Movie $movie) {
+        $movie->delete();
+        return response()->noContent();
+    }
 }

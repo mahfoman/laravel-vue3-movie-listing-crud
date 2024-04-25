@@ -68,5 +68,39 @@ export default function useMovies() {
             .finally(() => isLoading.value = false)
     }
 
-    return { movies, getMovies, storeMovie, validationErrors, isLoading, movie, getMovie , updateMovie  }
+    const deleteMovie = async (id) => {
+
+        swal({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to change back this action!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Please delete it!',
+            confirmButtonColor: '#ef4444',
+            timer: 20000,
+            timerProgressBar: true,
+            reverseButtons: true
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    axios.delete('/api/movies/' + id)
+                        .then(response => {
+                            getMovies()
+                            router.push({ name: 'movies.index' })
+                            swal({
+                                icon: 'success',
+                                title: 'Movie deleted successfully'
+                            })
+                        })
+                        .catch(error => {
+                            swal({
+                                icon: 'error',
+                                title: 'Something went wrong'
+                            })
+                        })
+                }
+            });
+    }
+
+    return { movies, getMovies, storeMovie, validationErrors, isLoading, movie, getMovie , updateMovie , deleteMovie  }
 }

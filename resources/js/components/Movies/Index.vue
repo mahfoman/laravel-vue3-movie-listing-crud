@@ -54,6 +54,7 @@
             </td>
             <td>
                 <router-link :to="{ name: 'movies.edit', params: { id: movie.id } }">Edit</router-link>
+                <a href="#" @click.prevent="deleteMovie(movie.id)" class="ml-2">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -72,7 +73,7 @@ import useGenres from "../../composables/genres";
 
 const search_genre = ref('')
 
-const { movies, getMovies } = useMovies()
+const { movies, getMovies, deleteMovie } = useMovies()
 const { genres, getGenres } = useGenres()
 
 watch(search_genre, (current, previous) => {
