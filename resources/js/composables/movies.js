@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 
 export default function useMovies() {
     const movies = ref([])
+    const validationErrors = ref({})
     const router = useRouter()
 
     const getMovies = async (page = 1 , genre = '') => {
@@ -18,7 +19,12 @@ export default function useMovies() {
             .then(response => {
                 router.push({ name: 'movies.index' })
             })
+            .catch(error => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors
+                }
+            })
     }
 
-    return { movies, getMovies, storeMovie }
+    return { movies, getMovies, storeMovie, validationErrors  }
 }

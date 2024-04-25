@@ -27,4 +27,9 @@ class StoreMovieRequest extends FormRequest
             'genre_id' => ['required',  'exists:genres,id'],
         ];
     }
+
+    public function attributes(): array
+    {
+        return ['genre_id' => 'genre'];
+    }
 }

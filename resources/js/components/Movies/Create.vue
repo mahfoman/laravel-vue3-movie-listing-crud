@@ -6,10 +6,16 @@
                 <div class="mb-3">
                     <label for="email">Title:</label>
                     <input type="text" v-model="movie.title" class="form-control" id="title" placeholder="Enter title" name="title">
+                    <div v-for="message in validationErrors?.title">
+                        <span class="text-danger">{{ message }}</span>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email">Description:</label>
                     <textarea v-model="movie.description"  class="form-control" rows="5" id="description" name="description"></textarea>
+                    <div v-for="message in validationErrors?.description">
+                        <span class="text-danger">{{ message }}</span>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="pwd">Genre:</label>
@@ -19,6 +25,9 @@
                             {{ genre.name }}
                         </option>
                     </select>
+                    <div v-for="message in validationErrors?.genre_id">
+                        <span class="text-danger">{{ message }}</span>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary cursor-not-allowed">
                     <span>Save</span>
@@ -40,7 +49,7 @@ const movie = reactive({
 })
 
 const { genres, getGenres } = useGenres()
-const { storeMovie } = useMovies()
+const { storeMovie, validationErrors  } = useMovies()
 
 onMounted(() => {
     getGenres()
