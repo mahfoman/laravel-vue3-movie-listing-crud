@@ -15,6 +15,7 @@ Laravel 10.43.0 on php 8.1.0 and vue3 are being used for this demo project
 - run [ composer install and npm install]
 - create a mysql database and update the name in .env file
 - run [ php artisan migrate:fresh --seed ]
+- [ npm run dev and php artisan serve ]
 
 
 ## License
