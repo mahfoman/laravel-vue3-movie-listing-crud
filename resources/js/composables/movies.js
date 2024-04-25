@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default function useMovies() {
@@ -7,6 +7,7 @@ export default function useMovies() {
     const validationErrors = ref({})
     const router = useRouter()
     const isLoading = ref(false)
+    const swal = inject('$swal')
 
     const getMovies = async (page = 1 , genre = '') => {
         axios.get('/api/movies?page=' + page + '&genre=' + genre)
@@ -25,6 +26,10 @@ export default function useMovies() {
         axios.post('/api/movies', movie)
             .then(response => {
                 router.push({ name: 'movies.index' })
+                swal({
+                    icon: 'success',
+                    title: 'Movie saved successfully'
+                })
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -50,6 +55,10 @@ export default function useMovies() {
         axios.put('/api/movies/' + movie.id, movie)
             .then(response => {
                 router.push({ name: 'movies.index' })
+                swal({
+                    icon: 'success',
+                    title: `${movie.title} edited successfully`
+                })
             })
             .catch(error => {
                 if (error.response?.data) {

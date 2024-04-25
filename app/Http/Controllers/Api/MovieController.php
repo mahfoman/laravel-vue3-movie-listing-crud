@@ -15,6 +15,7 @@ class MovieController extends Controller
             ->when(request('genre'), function (Builder $query) {
                 $query->where('genre_id', request('genre'));
             })
+            ->orderBy('id', 'desc')
             ->paginate(10);
         return MovieResource::collection($movies);
     }
