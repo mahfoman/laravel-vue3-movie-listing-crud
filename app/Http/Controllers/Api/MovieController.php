@@ -24,4 +24,13 @@ class MovieController extends Controller
         $movie = Movie::create($request->validated());
         return new MovieResource($movie);
     }
+
+    public function show(Movie $movie) {
+        return new MovieResource($movie);
+    }
+
+    public function update(Movie $movie, StoreMovieRequest $request) {
+        $movie->update($request->validated());
+        return new MovieResource($movie);
+    }
 }

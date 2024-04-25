@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default function useMovies() {
+    const movie = ref({})
     const movies = ref([])
     const validationErrors = ref({})
     const router = useRouter()
@@ -33,5 +34,30 @@ export default function useMovies() {
             })
     }
 
-    return { movies, getMovies, storeMovie, validationErrors, isLoading  }
+    const getMovie = async (id) => {
+        axios.get('/api/movies/' + id)
+            .then(response => {
+                movie.value = response.data.data;
+            })
+    }
+
+    const updateMovie = async (movie) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true
+        validationErrors.value = {}
+
+        axios.put('/api/movies/' + movie.id, movie)
+            .then(response => {
+                router.push({ name: 'movies.index' })
+            })
+            .catch(error => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors
+                }
+            })
+            .finally(() => isLoading.value = false)
+    }
+
+    return { movies, getMovies, storeMovie, validationErrors, isLoading, movie, getMovie , updateMovie  }
 }

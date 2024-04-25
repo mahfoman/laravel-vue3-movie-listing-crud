@@ -32,6 +32,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Created</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -50,6 +51,9 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                 {{ movie.created_at }}
+            </td>
+            <td>
+                <router-link :to="{ name: 'movies.edit', params: { id: movie.id } }">Edit</router-link>
             </td>
         </tr>
         </tbody>

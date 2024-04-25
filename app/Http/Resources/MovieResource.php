@@ -17,6 +17,7 @@ class MovieResource extends JsonResource
         return [
             'id' => $this->id,
             'genre' => $this->genre->name,
+            'genre_id' => $this->genre_id,
             'title' => $this->title,
             'description' => substr($this->description, 0, 80) . '...',
             'created_at' => $this->created_at->toDateString()
