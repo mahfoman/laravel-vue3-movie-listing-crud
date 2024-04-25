@@ -1,7 +1,9 @@
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default function useMovies() {
     const movies = ref([])
+    const router = useRouter()
 
     const getMovies = async (page = 1 , genre = '') => {
         axios.get('/api/movies?page=' + page + '&genre=' + genre)
@@ -9,5 +11,14 @@ export default function useMovies() {
                 movies.value = response.data;
             })
     }
-    return { movies, getMovies }
+
+    const storeMovie = async (movie) => {
+        // console.log(movie);
+        axios.post('/api/movies', movie)
+            .then(response => {
+                router.push({ name: 'movies.index' })
+            })
+    }
+
+    return { movies, getMovies, storeMovie }
 }
