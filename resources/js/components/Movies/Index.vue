@@ -53,8 +53,12 @@
                 {{ movie.created_at }}
             </td>
             <td>
-                <router-link :to="{ name: 'movies.edit', params: { id: movie.id } }">Edit</router-link>
-                <a href="#" @click.prevent="deleteMovie(movie.id)" class="ml-2">Delete</a>
+                <router-link :to="{ name: 'movies.edit', params: { id: movie.id } }" >
+                    <i class="fa fa-pencil-square-o text-dark" aria-hidden="true"></i>
+                </router-link>
+                <a href="#" @click.prevent="deleteMovie(movie.id)" class="ml-2">
+                    <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                </a>
             </td>
         </tr>
         </tbody>
