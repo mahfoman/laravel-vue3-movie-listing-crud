@@ -17,7 +17,7 @@ class MovieFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->text(20),
+            'title' => $this->faker->words(3, true),
             'description' => $this->faker->paragraphs(5, true),
         ];
     }
